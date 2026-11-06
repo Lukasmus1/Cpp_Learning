@@ -4,7 +4,9 @@ project(Cpp_Snake)
 set(CMAKE_CXX_STANDARD 26)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(Cpp_Snake main.cpp)
+add_executable(Cpp_Snake main.cpp
+        Game.cpp
+        Game.h)
 
 find_package(raylib CONFIG REQUIRED)
 

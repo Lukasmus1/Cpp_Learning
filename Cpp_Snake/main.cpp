@@ -1,19 +1,17 @@
+#include "Game.h"
 #include "raylib.h"
 
 int main()
 {
-    InitWindow(800, 600, "Hello Raylib");
+    Game game(800, 600, 60);
 
-    SetTargetFPS(60);
+    InitWindow(game.GetWidth(), game.GetHeight(), "Snake");
+
+    SetTargetFPS(game.GetFPS());
 
     while (!WindowShouldClose())
     {
         BeginDrawing();
-
-        ClearBackground(RAYWHITE);
-
-        DrawText("Hello World from Raylib + CLion!", 170, 280, 20, BLACK);
-
         EndDrawing();
     }
 
