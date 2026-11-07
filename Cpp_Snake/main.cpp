@@ -3,15 +3,16 @@
 
 int main()
 {
-    Game game(800, 600, 60);
+    Game game(800, 60, 20);
 
-    InitWindow(game.GetWidth(), game.GetHeight(), "Snake");
+    InitWindow(game.GetWindowSize(), game.GetWindowSize(), "Snake");
 
     SetTargetFPS(game.GetFPS());
 
     while (!WindowShouldClose())
     {
         BeginDrawing();
+        game.Draw();
         EndDrawing();
     }
 

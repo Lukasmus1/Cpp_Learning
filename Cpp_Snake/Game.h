@@ -1,12 +1,18 @@
 #pragma once
 
+#include "Snake.h"
+
 class Game {
 private:
-    int width, height, fps;
+    int windowSize, fps;
+    int gridSizeMult;
+    int cellSize;
+    Snake snake;
 public:
-    Game(int width, int height, int FPS);
+    Game(int windowSize, int FPS, int gridSizeMult);
 
-    int GetWidth() const;
-    int GetHeight() const;
+    int GetWindowSize() const;
     int GetFPS() const;
+
+    void Draw();
 };

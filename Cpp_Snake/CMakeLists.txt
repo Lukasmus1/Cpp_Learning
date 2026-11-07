@@ -6,7 +6,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(Cpp_Snake main.cpp
         Game.cpp
-        Game.h)
+        Game.h
+        Food.cpp
+        Food.h
+        Snake.cpp
+        Snake.h)
 
 find_package(raylib CONFIG REQUIRED)
 
