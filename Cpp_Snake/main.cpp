@@ -1,12 +1,9 @@
-#include <iostream>
-#include <ostream>
-
 #include "Game.h"
 #include "raylib.h"
 
 int main()
 {
-    Game game(800, 120, 20, 200);
+    Game game(800, 120, 40, 100);
 
     InitWindow(game.getWindowSize(), game.getWindowSize(), "Snake");
     SetTargetFPS(game.getFPS());

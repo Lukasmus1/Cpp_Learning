@@ -66,15 +66,19 @@ void Game::updateDirectionBuffer(const Direction dir) {
 
 void Game::getDirectionInput() {
     if (IsKeyPressed(KEY_W) || IsKeyPressed(KEY_UP)) {
-        updateDirectionBuffer(Direction::UP);
+        if ((directionBuffer.empty() && snake.getDirection() != Direction::DOWN) || (!directionBuffer.empty() && directionBuffer.front() != Direction::DOWN))
+            updateDirectionBuffer(Direction::UP);
     }
-    if (IsKeyPressed(KEY_S) || IsKeyPressed(KEY_DOWN)) {
-        updateDirectionBuffer(Direction::DOWN);
+    else if (IsKeyPressed(KEY_S) || IsKeyPressed(KEY_DOWN)) {
+        if ((directionBuffer.empty() && snake.getDirection() != Direction::UP) || (!directionBuffer.empty() && directionBuffer.front() != Direction::UP))
+            updateDirectionBuffer(Direction::DOWN);
     }
-    if (IsKeyPressed(KEY_A) || IsKeyPressed(KEY_LEFT)) {
-        updateDirectionBuffer(Direction::LEFT);
+    else if (IsKeyPressed(KEY_A) || IsKeyPressed(KEY_LEFT)) {
+        if ((directionBuffer.empty() && snake.getDirection() != Direction::RIGHT) || (!directionBuffer.empty() && directionBuffer.front() != Direction::RIGHT))
+            updateDirectionBuffer(Direction::LEFT);
     }
-    if (IsKeyPressed(KEY_D) || IsKeyPressed(KEY_RIGHT)) {
-        updateDirectionBuffer(Direction::RIGHT);
+    else if (IsKeyPressed(KEY_D) || IsKeyPressed(KEY_RIGHT)) {
+        if ((directionBuffer.empty() && snake.getDirection() != Direction::LEFT) || (!directionBuffer.empty() && directionBuffer.front() != Direction::LEFT))
+            updateDirectionBuffer(Direction::RIGHT);
     }
 }
