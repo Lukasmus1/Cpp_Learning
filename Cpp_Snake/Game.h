@@ -11,8 +11,9 @@ private:
 public:
     Game(int windowSize, int FPS, int gridSizeMult);
 
-    int GetWindowSize() const;
-    int GetFPS() const;
+    int getWindowSize() const;
+    int getFPS() const;
 
-    void Draw();
+    void draw();
+    void move();
 };

@@ -5,15 +5,18 @@ int main()
 {
     Game game(800, 60, 20);
 
-    InitWindow(game.GetWindowSize(), game.GetWindowSize(), "Snake");
+    InitWindow(game.getWindowSize(), game.getWindowSize(), "Snake");
 
-    SetTargetFPS(game.GetFPS());
+    SetTargetFPS(game.getFPS());
 
     while (!WindowShouldClose())
     {
         BeginDrawing();
-        game.Draw();
+        game.draw();
+        game.move();
         EndDrawing();
+
+        WaitTime(0.1);
     }
 
     CloseWindow();

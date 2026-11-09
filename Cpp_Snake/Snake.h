@@ -1,15 +1,25 @@
 #pragma once
-#include <vector>
+
+#include <deque>
+#include "Direction.h"
 
 using namespace std;
 class Snake {
 private:
-    vector<pair<int, int>> body;
-    float size = 0;
+    deque<pair<int, int>> body;
+    int size = 0;
     float cubeSizeOffsetMultiplier = 0.9;
+    Direction direction = Direction::RIGHT;
+
 public:
-    float getCubeSizeOffsetMultiplier() const;
-    void setSize(float cubeSize);
-    void addCube(int x, int y);
-    const vector<pair<int, int>>& getBody();
+    [[nodiscard]] float getCubeSizeOffsetMultiplier() const;
+    void setSize(int cubeSize);
+    int getSize() const;
+
+    void addBodyPart(int x, int y);
+    const deque<pair<int, int>>& getBody();
+    void moveBody();
+
+    [[nodiscard]] Direction getDirection() const;
+    void setDirection(Direction dir);
 };
