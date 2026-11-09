@@ -5,9 +5,10 @@
 
 #include "raylib.h"
 
-Game::Game(const int size, const int fps, const int gridSizeMult) :
+Game::Game(const int size, const int fps, const int gridSizeMult, const float tickRateMs) :
     windowSize(size),
     fps(fps),
+    tickRateMs(tickRateMs * 0.001f),
     gridSizeMult(gridSizeMult),
     cellSize(size / gridSizeMult)
 {
@@ -25,6 +26,10 @@ int Game::getWindowSize() const {
 
 int Game::getFPS() const {
     return fps;
+}
+
+float Game::getTickRateMs() const {
+    return tickRateMs;
 }
 
 void Game::draw() {
