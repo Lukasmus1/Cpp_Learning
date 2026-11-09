@@ -46,5 +46,35 @@ void Game::draw() {
 }
 
 void Game::move() {
+    if (!directionBuffer.empty()) {
+        snake.setDirection(directionBuffer.front());
+        directionBuffer.pop_front();
+    }
+
     snake.moveBody();
+}
+
+void Game::updateDirectionBuffer(const Direction dir) {
+    // If the buffer is larger than 3 don't queue it
+    // If the direction is the same as the lastest one don't queue it
+    if (directionBuffer.size() > 3 || (!directionBuffer.empty() && dir == directionBuffer.back())) {
+        return;
+    }
+
+    directionBuffer.push_back(dir);
+}
+
+void Game::getDirectionInput() {
+    if (IsKeyPressed(KEY_W) || IsKeyPressed(KEY_UP)) {
+        updateDirectionBuffer(Direction::UP);
+    }
+    if (IsKeyPressed(KEY_S) || IsKeyPressed(KEY_DOWN)) {
+        updateDirectionBuffer(Direction::DOWN);
+    }
+    if (IsKeyPressed(KEY_A) || IsKeyPressed(KEY_LEFT)) {
+        updateDirectionBuffer(Direction::LEFT);
+    }
+    if (IsKeyPressed(KEY_D) || IsKeyPressed(KEY_RIGHT)) {
+        updateDirectionBuffer(Direction::RIGHT);
+    }
 }

@@ -6,7 +6,7 @@
 
 int main()
 {
-    Game game(800, 120, 20, 250);
+    Game game(800, 120, 20, 200);
 
     InitWindow(game.getWindowSize(), game.getWindowSize(), "Snake");
     SetTargetFPS(game.getFPS());
@@ -15,6 +15,7 @@ int main()
     while (!WindowShouldClose())
     {
         BeginDrawing();
+        game.getDirectionInput();
         game.draw();
 
         timer += GetFrameTime();

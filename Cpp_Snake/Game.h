@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "Snake.h"
 
 class Game {
@@ -9,6 +11,10 @@ private:
     int gridSizeMult;
     int cellSize;
     Snake snake;
+
+    deque<Direction> directionBuffer;
+    void updateDirectionBuffer(Direction dir);
+
 public:
     Game(int windowSize, int FPS, int gridSizeMult, float tickRateMs);
 
@@ -18,4 +24,6 @@ public:
 
     void draw();
     void move();
+
+    void getDirectionInput();
 };
