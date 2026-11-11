@@ -10,14 +10,17 @@ Game::Game(const int size, const int fps, const int gridSizeMult, const float ti
     fps(fps),
     tickRateMs(tickRateMs * 0.001f),
     gridSizeMult(gridSizeMult),
-    cellSize(size / gridSizeMult)
+    cellSize(size / gridSizeMult),
+    food(&snake.getBody())
 {
     // Calculating in float and casting the result as int
     const int cubeSize = static_cast<int>(static_cast<float>(cellSize) * snake.getCubeSizeOffsetMultiplier());
-    snake.setSize(cubeSize);
+    gridItemSize = cubeSize;
 
     const int startCoords = gridSizeMult / 2;
     snake.addBodyPart(startCoords, startCoords);
+
+    food.generateRandomPos(gridSizeMult);
 }
 
 int Game::getWindowSize() const {
@@ -36,12 +39,15 @@ void Game::draw() {
     // Reset
     ClearBackground(BLACK);
 
+    // Draw Food
+    food.drawFood(gridItemSize, cellSize);
+
     // Draw body
     for (auto bodyCell: snake.getBody()) {
         const int posX = bodyCell.first * cellSize;
         const int posY = bodyCell.second * cellSize;
 
-        DrawRectangle(posX, posY, snake.getSize(), snake.getSize(), WHITE);
+        DrawRectangle(posX, posY, gridItemSize, gridItemSize, WHITE);
     }
 }
 
@@ -65,6 +71,8 @@ void Game::updateDirectionBuffer(const Direction dir) {
 }
 
 void Game::getDirectionInput() {
+    //The second check forbids the snake from making 180° turns
+
     if (IsKeyPressed(KEY_W) || IsKeyPressed(KEY_UP)) {
         if ((directionBuffer.empty() && snake.getDirection() != Direction::DOWN) || (!directionBuffer.empty() && directionBuffer.front() != Direction::DOWN))
             updateDirectionBuffer(Direction::UP);

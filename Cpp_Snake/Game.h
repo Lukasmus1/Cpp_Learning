@@ -2,6 +2,7 @@
 
 #include <vector>
 
+#include "Food.h"
 #include "Snake.h"
 
 class Game {
@@ -11,9 +12,12 @@ private:
     int gridSizeMult;
     int cellSize;
     Snake snake;
+    int gridItemSize;
 
     deque<Direction> directionBuffer;
     void updateDirectionBuffer(Direction dir);
+
+    Food food;
 
 public:
     Game(int windowSize, int FPS, int gridSizeMult, float tickRateMs);
