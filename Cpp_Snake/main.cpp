@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "raylib.h"
+#include "StateMachine.h"
 
 int main()
 {
@@ -12,13 +13,27 @@ int main()
     while (!WindowShouldClose())
     {
         BeginDrawing();
-        game.getDirectionInput();
-        game.draw();
+        switch (StateMachine::getInstance().getState()) {
+            case States::MENU:
+                game.drawTitle("Snake");
+                game.drawButton("Play", []()-> void {StateMachine::getInstance().switchState(States::GAME);});
+                break;
+            case States::GAME:
+                game.getDirectionInput();
+                game.draw();
 
-        timer += GetFrameTime();
-        if (timer >= game.getTickRateMs()) {
-            game.move();
-            timer = 0;
+                timer += GetFrameTime();
+                if (timer >= game.getTickRateMs()) {
+                    game.move();
+                    timer = 0;
+                }
+                break;
+            case States::GAME_OVER:
+                game.drawTitle("Game\nOver");
+                game.drawButton("Retry", []()-> void {StateMachine::getInstance().switchState(States::GAME);});
+                break;
+            case States::NONE:
+                throw "State NONE should never be used";
         }
 
         EndDrawing();

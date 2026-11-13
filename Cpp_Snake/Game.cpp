@@ -1,5 +1,6 @@
 #include "Game.h"
 
+#include <functional>
 #include <iostream>
 #include <ostream>
 
@@ -101,4 +102,42 @@ void Game::getDirectionInput() {
         if ((directionBuffer.empty() && snake.getDirection() != Direction::LEFT) || (!directionBuffer.empty() && directionBuffer.front() != Direction::LEFT))
             updateDirectionBuffer(Direction::RIGHT);
     }
+}
+
+void Game::drawTitle(const char* title) const {
+    const int textSize = windowSize / 4;
+    const int textWidth = MeasureText(title, textSize);
+
+    const int posX = windowSize / 2 - textWidth / 2;
+    const int posY = windowSize / 2 - textWidth / 2;
+
+    DrawText(title, posX, posY, textSize, WHITE);
+}
+
+void Game::drawButton(const char* buttonTitle, const function<void()>& onClick) {
+    // All the const numbers here are done by eyeballing the measurements
+    const float buttonWidth = windowSize / 2;
+    const float buttonHeight = windowSize / 10;
+
+    float posX = windowSize / 2 - buttonWidth / 2;
+    float posY = windowSize / 1.2;
+
+    Rectangle btnBounds = {posX, posY, buttonWidth, buttonHeight};
+    Color buttonColor = WHITE;
+
+    if (CheckCollisionPointRec(GetMousePosition(), btnBounds)) {
+        buttonColor = GRAY;
+        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+            onClick();
+        }
+    }
+
+    DrawRectangle(posX, posY, buttonWidth, buttonHeight, buttonColor);
+
+    const int textSize = buttonHeight / 1.5;
+    const int textWidth = MeasureText(buttonTitle, textSize);
+
+    posX = posX + buttonWidth / 2 - textWidth / 2;
+    posY += buttonHeight / 6;
+    DrawText(buttonTitle, posX, posY, textSize, BLACK);
 }

@@ -4,9 +4,10 @@
 
 class StateMachine {
 private:
-    StateMachine() = default;
+    StateMachine() :
+        state(States::MENU){}
     ~StateMachine() = default;
-    States states;
+    States state;
 
 public:
     StateMachine(const StateMachine&) = delete; // Forbid passing a copy as an argument e.g., func(StateMachine s)
@@ -16,4 +17,7 @@ public:
         static StateMachine instance;
         return instance;
     }
+
+    States getState() const;
+    void switchState(States newState);
 };

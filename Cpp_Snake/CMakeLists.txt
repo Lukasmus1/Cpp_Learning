@@ -14,7 +14,8 @@ add_executable(Cpp_Snake main.cpp
         Direction.h
         StateMachine.cpp
         StateMachine.h
-        States.h)
+        States.h
+)
 
 find_package(raylib CONFIG REQUIRED)
 

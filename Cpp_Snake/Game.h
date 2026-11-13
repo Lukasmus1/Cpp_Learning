@@ -1,5 +1,6 @@
 #pragma once
 
+#include <functional>
 #include <vector>
 
 #include "Food.h"
@@ -30,4 +31,7 @@ public:
     void move();
 
     void getDirectionInput();
+
+    void drawTitle(const char *title) const;
+    void drawButton(const char *buttonTitle, const function<void()> &onClick);
 };
