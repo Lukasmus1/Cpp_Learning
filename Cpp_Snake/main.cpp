@@ -3,7 +3,7 @@
 
 int main()
 {
-    Game game(800, 120, 40, 100);
+    Game game(800, 120, 20, 100);
 
     InitWindow(game.getWindowSize(), game.getWindowSize(), "Snake");
     SetTargetFPS(game.getFPS());

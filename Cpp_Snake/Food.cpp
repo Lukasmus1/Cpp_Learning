@@ -19,4 +19,8 @@ void Food::drawFood(const int size, const int cellSize) const {
     DrawCircle(posX, posY, size / 2, RED);
 }
 
+pair<int, int> & Food::getPos() {
+    return pos;
+}
+
 Food::Food(const deque<pair<int, int>>* snakeBody) : snakeBody(snakeBody) {}

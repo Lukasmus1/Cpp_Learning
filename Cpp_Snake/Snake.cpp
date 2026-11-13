@@ -22,6 +22,10 @@ const deque<pair<int, int>>& Snake::getBody() {
     return body;
 }
 
+const pair<int, int> & Snake::getHead() {
+    return body.front();
+}
+
 void Snake::moveBody() {
     pair<int, int> dir;
     switch (direction) {
@@ -43,6 +47,11 @@ void Snake::moveBody() {
 
     // New head is old head + dir
     body.emplace_front(body.begin()->first + dir.first, body.begin()->second + dir.second);
+
+    if (shouldGrow) {
+        shouldGrow = false;
+        return;
+    }
 
     body.pop_back();
 }

@@ -11,7 +11,10 @@ add_executable(Cpp_Snake main.cpp
         Food.h
         Snake.cpp
         Snake.h
-        Direction.h)
+        Direction.h
+        StateMachine.cpp
+        StateMachine.h
+        States.h)
 
 find_package(raylib CONFIG REQUIRED)
 

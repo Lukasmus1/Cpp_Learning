@@ -58,6 +58,18 @@ void Game::move() {
     }
 
     snake.moveBody();
+
+    // Collision Checks
+    // Apple
+    const pair<int, int>& snakeHead = snake.getHead();
+    if (snakeHead.first == food.getPos().first && snakeHead.second == food.getPos().second) {
+        snake.shouldGrow = true;
+
+        food.generateRandomPos(gridSizeMult);
+    }
+
+    // Borders
+    //if (snakeHead.first > )
 }
 
 void Game::updateDirectionBuffer(const Direction dir) {

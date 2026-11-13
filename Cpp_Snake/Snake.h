@@ -18,7 +18,12 @@ public:
 
     void addBodyPart(int x, int y);
     const deque<pair<int, int>>& getBody();
+    const pair<int, int>& getHead();
     void moveBody();
+
+    void grow();
+
+    bool shouldGrow = false;
 
     [[nodiscard]] Direction getDirection() const;
     void setDirection(Direction dir);

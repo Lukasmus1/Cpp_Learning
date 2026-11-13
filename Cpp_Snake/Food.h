@@ -16,4 +16,6 @@ public:
     void generateRandomPos(int gridSize);
 
     void drawFood(int size, int cellSize) const;
+
+    pair<int, int>& getPos();
 };
