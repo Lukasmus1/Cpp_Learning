@@ -13,6 +13,8 @@ int main()
     while (!WindowShouldClose())
     {
         BeginDrawing();
+        ClearBackground(BLACK);
+
         switch (StateMachine::getInstance().getState()) {
             case States::MENU:
                 game.drawTitle("Snake");

@@ -2,9 +2,9 @@
 
 #include <functional>
 #include <iostream>
-#include <ostream>
 
 #include "raylib.h"
+#include "StateMachine.h"
 
 Game::Game(const int size, const int fps, const int gridSizeMult, const float tickRateMs) :
     windowSize(size),
@@ -18,10 +18,7 @@ Game::Game(const int size, const int fps, const int gridSizeMult, const float ti
     const int cubeSize = static_cast<int>(static_cast<float>(cellSize) * snake.getCubeSizeOffsetMultiplier());
     gridItemSize = cubeSize;
 
-    const int startCoords = gridSizeMult / 2;
-    snake.addBodyPart(startCoords, startCoords);
-
-    food.generateRandomPos(gridSizeMult);
+    setup();
 }
 
 int Game::getWindowSize() const {
@@ -36,10 +33,12 @@ float Game::getTickRateMs() const {
     return tickRateMs;
 }
 
-void Game::draw() {
-    // Reset
-    ClearBackground(BLACK);
+void Game::drawScore() {
+    // Divide by 20 is eyeballing the best look
+    DrawText(("Score: " + to_string(snake.getBody().size() - 1)).c_str(), 0, 0, windowSize / 25, WHITE);
+}
 
+void Game::draw() {
     // Draw Food
     food.drawFood(gridItemSize, cellSize);
 
@@ -50,6 +49,9 @@ void Game::draw() {
 
         DrawRectangle(posX, posY, gridItemSize, gridItemSize, WHITE);
     }
+
+    // Draw score periodically
+    drawScore();
 }
 
 void Game::move() {
@@ -67,10 +69,33 @@ void Game::move() {
         snake.shouldGrow = true;
 
         food.generateRandomPos(gridSizeMult);
+
+        // Update score instantly
+        drawScore();
     }
 
     // Borders
-    //if (snakeHead.first > )
+    if (snakeHead.first > gridSizeMult || snakeHead.first < 0 || snakeHead.second > gridSizeMult || snakeHead.second < 0) {
+        gameOver();
+    }
+
+    // Body
+    const deque<pair<int, int>> snakeBody = snake.getBody();
+    for (int ind = 1; ind < snakeBody.size(); ++ind) {
+        if (snakeBody[ind].first == snakeHead.first && snakeBody[ind].second == snakeHead.second) {
+            gameOver();
+        }
+    }
+}
+
+void Game::setup() {
+    if (!snake.getBody().empty())
+        snake.deleteBody();
+
+    const int startCoords = gridSizeMult / 2;
+    snake.addBodyPart(startCoords, startCoords);
+
+    food.generateRandomPos(gridSizeMult);
 }
 
 void Game::updateDirectionBuffer(const Direction dir) {
@@ -140,4 +165,9 @@ void Game::drawButton(const char* buttonTitle, const function<void()>& onClick) 
     posX = posX + buttonWidth / 2 - textWidth / 2;
     posY += buttonHeight / 6;
     DrawText(buttonTitle, posX, posY, textSize, BLACK);
+}
+
+void Game::gameOver() {
+    StateMachine::getInstance().switchState(States::GAME_OVER);
+    setup();
 }

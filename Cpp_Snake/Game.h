@@ -14,11 +14,14 @@ private:
     int cellSize;
     Snake snake;
     int gridItemSize;
+    void setup();
 
     deque<Direction> directionBuffer;
     void updateDirectionBuffer(Direction dir);
 
     Food food;
+
+    void drawScore();
 
 public:
     Game(int windowSize, int FPS, int gridSizeMult, float tickRateMs);
@@ -34,4 +37,6 @@ public:
 
     void drawTitle(const char *title) const;
     void drawButton(const char *buttonTitle, const function<void()> &onClick);
+
+    void gameOver();
 };

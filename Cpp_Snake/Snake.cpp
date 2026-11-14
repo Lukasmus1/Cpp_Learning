@@ -26,6 +26,10 @@ const pair<int, int> & Snake::getHead() {
     return body.front();
 }
 
+void Snake::deleteBody() {
+    body.clear();
+}
+
 void Snake::moveBody() {
     pair<int, int> dir;
     switch (direction) {
