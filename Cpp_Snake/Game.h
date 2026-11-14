@@ -15,6 +15,7 @@ private:
     Snake snake;
     int gridItemSize;
     void setup();
+    int finalScore = 0;
 
     deque<Direction> directionBuffer;
     void updateDirectionBuffer(Direction dir);
@@ -31,6 +32,7 @@ public:
     float getTickRateMs() const;
 
     void draw();
+    void drawFinalScore() const;
     void move();
 
     void getDirectionInput();

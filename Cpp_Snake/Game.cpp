@@ -54,6 +54,10 @@ void Game::draw() {
     drawScore();
 }
 
+void Game::drawFinalScore() const {
+    DrawText(("Final Score: " + to_string(finalScore)).c_str(), 0, 0, windowSize / 25, WHITE);
+}
+
 void Game::move() {
     if (!directionBuffer.empty()) {
         snake.setDirection(directionBuffer.front());
@@ -169,5 +173,6 @@ void Game::drawButton(const char* buttonTitle, const function<void()>& onClick) 
 
 void Game::gameOver() {
     StateMachine::getInstance().switchState(States::GAME_OVER);
+    finalScore = static_cast<int>(snake.getBody().size() - 1);
     setup();
 }

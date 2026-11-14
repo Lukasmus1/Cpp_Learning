@@ -33,6 +33,7 @@ int main()
             case States::GAME_OVER:
                 game.drawTitle("Game\nOver");
                 game.drawButton("Retry", []()-> void {StateMachine::getInstance().switchState(States::GAME);});
+                game.drawFinalScore();
                 break;
             case States::NONE:
                 throw "State NONE should never be used";
